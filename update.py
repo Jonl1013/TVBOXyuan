@@ -2,56 +2,109 @@
 """
 TVBox 聚合源自动更新脚本
 - 从 tvbox.clbug.com 获取所有源
-- 测速
-- 每个源独立保留（保持 JAR 关联）
-- type=0/1 采集站单独聚合作为快速源
+- 测速（源URL延迟 + 采集站实际播放速度）
+- 按播放速度排序：首帧快、不卡顿的排前面
 """
 import json, sys, re, subprocess, os, time
 
 WORK_DIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_FILE = os.path.join(WORK_DIR, "tvbox.json")
 
-def curl(url, timeout=10):
+def fetch(url, timeout=10):
     try:
-        r = subprocess.run(
-            ["curl", "-s", "-L", "--connect-timeout", str(timeout),
-             "--max-time", str(timeout * 2), "-A", "Mozilla/5.0", url],
-            capture_output=True, timeout=timeout * 2 + 5
-        )
+        r = subprocess.run(["curl", "-s", "-L", "--connect-timeout", str(timeout),
+                           "--max-time", str(timeout*2), "-A", "Mozilla/5.0", url],
+                          capture_output=True, timeout=timeout*2+5)
         return r.stdout.decode("utf-8", errors="replace")
     except:
         return ""
 
+def build_url(base, params):
+    sep = "&" if "?" in base else "?"
+    return base.rstrip("/") + sep + params
+
 def fetch_source_list():
-    html = curl("https://tvbox.clbug.com/user.php", timeout=20)
+    html = fetch("https://tvbox.clbug.com/user.php", timeout=20)
     urls = re.findall(r'data-url="([^"]+)"', html)
     names = re.findall(r'<td class="td-name">([^<]+)</td>', html)
-    sources = []
-    for name, url in zip(names, urls):
-        url = url.strip().replace("&amp;", "&")
-        if url and not url.startswith("#"):
-            sources.append((name.strip(), url))
-    return sources
+    return [(n.strip(), u.strip().replace("&amp;", "&")) for n, u in zip(names, urls) if u.strip() and not u.strip().startswith("#")]
 
-def test_latency(url, timeout=8):
+def test_url_latency(url, timeout=8):
     try:
         start = time.time()
-        r = subprocess.run(
-            ["curl", "-s", "-o", "/dev/null", "-w", "%{http_code}",
-             "--connect-timeout", str(timeout), "--max-time", str(timeout * 2),
-             "-L", "-A", "Mozilla/5.0", url],
-            capture_output=True, timeout=timeout * 2 + 5
-        )
-        elapsed = int((time.time() - start) * 1000)
+        r = subprocess.run(["curl", "-s", "-o", "/dev/null", "-w", "%{http_code}",
+                           "--connect-timeout", str(timeout), "--max-time", str(timeout*2),
+                           "-L", "-A", "Mozilla/5.0", url],
+                          capture_output=True, timeout=timeout*2+5)
         code = r.stdout.decode().strip()
-        if code.startswith(("2", "3")):
-            return elapsed
-        return 99999
+        elapsed = int((time.time() - start) * 1000)
+        return elapsed if code.startswith(("2", "3")) else 99999
     except:
         return 99999
 
+def test_play_speed(api, stype):
+    """返回 (首帧ms, 下载速度KB/s, HTTP码)"""
+    base_api = re.sub(r'[?&]ac=list.*', '', api.rstrip("/"))
+    list_body = fetch(build_url(base_api, "ac=list"), timeout=10)
+    if not list_body or len(list_body) < 50:
+        return 99999, 0, "list_fail"
+    
+    vod_id = None
+    if stype == 0:
+        m = re.findall(r'<id>(\d+)</id>', list_body)
+        vod_id = m[0] if m else None
+    else:
+        try:
+            j = json.loads(list_body, strict=False)
+            vl = j.get("list", [])
+            vod_id = str(vl[0]["vod_id"]) if vl else None
+        except:
+            return 99999, 0, "parse_fail"
+    
+    if not vod_id:
+        return 99999, 0, "no_id"
+    
+    detail_body = fetch(build_url(base_api, f"ac=detail&ids={vod_id}"), timeout=10)
+    if not detail_body:
+        return 99999, 0, "detail_fail"
+    
+    play_url = None
+    if stype == 0:
+        urls = re.findall(r'(https?://[^\s<>]+?\.m3u8[^\s<>]*)', detail_body)
+        play_url = urls[0] if urls else None
+    else:
+        try:
+            dj = json.loads(detail_body, strict=False)
+            vl = dj.get("list", [])
+            if vl:
+                play_raw = vl[0].get("vod_play_url", "")
+                urls = re.findall(r'(https?://[^\$\s#<>]+?\.m3u8[^\$\s#<>]*)', play_raw)
+                if not urls:
+                    urls = re.findall(r'(https?://[^\$\s#<>]+?\.mp4[^\$\s#<>]*)', play_raw)
+                play_url = urls[0] if urls else None
+        except:
+            return 99999, 0, "parse_fail"
+    
+    if not play_url:
+        return 99999, 0, "no_url"
+    
+    t0 = time.time()
+    r = subprocess.run(["curl", "-s", "-o", "/dev/null",
+                       "-w", "%{http_code},%{time_starttransfer},%{speed_download}",
+                       "--connect-timeout", "5", "--max-time", "10",
+                       "-r", "0-512000", play_url],
+                      capture_output=True, timeout=15)
+    info = r.stdout.decode().strip().split(",")
+    code = info[0] if info else "000"
+    ttfb = float(info[1]) if len(info) > 1 and info[1] else 99.0
+    speed = float(info[2]) if len(info) > 2 and info[2] else 0
+    
+    if not code.startswith("2"):
+        return 99999, 0, code
+    return int(ttfb * 1000), int(speed / 1024), code
+
 def fetch_and_parse(url):
-    raw = curl(url, timeout=15)
+    raw = fetch(url, timeout=15)
     if not raw.strip() or raw.strip().startswith("<"):
         return None
     raw = raw.lstrip('﻿')
@@ -68,112 +121,41 @@ def fetch_and_parse(url):
                 pass
     return None
 
-def test_play_speed(api, stype):
-    api = api.rstrip("/")
-    list_url = api + "/?ac=list" if "ac=" not in api else api
-    body = curl(list_url, timeout=8)
-    if not body:
-        return 99999
-    
-    vod_id = None
-    if stype == 0:
-        m = re.findall(r'<vod>(\d+)', body) or re.findall(r'id="(\d+)"', body)
-        if m:
-            vod_id = m[0]
-    else:
-        try:
-            j = json.loads(body, strict=False)
-            vl = j.get("list", [])
-            if vl:
-                vod_id = str(vl[0].get("vod_id", ""))
-        except:
-            return 99999
-    
-    if not vod_id:
-        return 99999
-    
-    detail_url = f"{api}/?ac=detail&ids={vod_id}"
-    t0 = time.time()
-    detail = curl(detail_url, timeout=8)
-    
-    play_urls = re.findall(r'(https?://[^\$\s#<>]+?\.(?:m3u8|mp4)[^\$\s#<>]*)', detail)
-    if not play_urls:
-        return int((time.time() - t0) * 1000)
-    
-    t0 = time.time()
-    subprocess.run(
-        ["curl", "-s", "-o", "/dev/null", "-w", "%{http_code}",
-         "--connect-timeout", "5", "--max-time", "8", "-r", "0-102400", play_urls[0]],
-        capture_output=True, timeout=12
-    )
-    return int((time.time() - t0) * 1000)
-
 def main():
-    ts = time.strftime('%Y-%m-%d %H:%M:%S')
-    print(f"[{ts}] 开始更新...")
+    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] 开始更新...")
 
     # 1. 获取源列表
     sources = fetch_source_list()
     print(f"  获取到 {len(sources)} 个源")
 
-    # 2. 测速 + 抓取每个源
-    source_configs = []  # (name, url, latency, data_dict)
+    # 2. 测URL延迟 + 抓取源配置
+    source_configs = []
     for name, url in sources:
-        latency = test_latency(url)
+        latency = test_url_latency(url)
         if latency >= 99999:
             continue
         data = fetch_and_parse(url)
-        if not data:
-            continue
-        source_configs.append((name, url, latency, data))
+        if data:
+            source_configs.append((name, url, latency, data))
         sys.stdout.write(f"\r  测试: {len(source_configs)}/{len(sources)}")
         sys.stdout.flush()
     print()
-
     source_configs.sort(key=lambda x: x[2])
-    print(f"  可用: {len(source_configs)}/{len(sources)}")
+    print(f"  可用源: {len(source_configs)}/{len(sources)}")
 
-    # 3. 构建聚合 JSON：每个源作为独立的 site 组
-    #    通过 JS 代理来保持每个源的 JAR 关联
-    #    方案：把每个源的 URL 作为 ext，用 JS 动态加载
-    
-    # 方案A：把所有源的 URL 列表放进去，让 App 逐个加载
-    # 方案B：只保留 type=0/1 的采集站（不需要 JAR，直接能用）+ 保留源 URL 列表
-    
-    # 最终方案：type=0/1 采集站直接嵌入（不依赖JAR），type=3 保留原始配置URL供App使用
-    
-    # 收集所有 type=0/1 采集站
-    collect_sites = []
-    collect_keys = set()
+    # 3. 收集 type=0/1 采集站 + 测播放速度
+    collect_apis = {}  # api -> (name, stype)
     all_lives = []
     all_parses = []
     live_keys = set()
     parse_keys = set()
-    spider = ""
-    
-    # 测试采集站播放速度
-    play_cache = {}
     
     for name, url, latency, data in source_configs:
-        if not spider and data.get("spider"):
-            spider = data["spider"]
-        
         for s in (data.get("sites") or []):
             stype = s.get("type", -1)
-            key = s.get("key", "")
             api = s.get("api", "")
-            
-            if stype in (0, 1) and key not in collect_keys:
-                collect_keys.add(key)
-                
-                # 测播放速度
-                if api.startswith("http") and api not in play_cache:
-                    play_cache[api] = test_play_speed(api, stype)
-                
-                pms = play_cache.get(api, latency)
-                s["name"] = f"[播放{pms}ms] {s.get('name', key)}"
-                s["_sort"] = pms
-                collect_sites.append(s)
+            if stype in (0, 1) and api.startswith("http") and api not in collect_apis:
+                collect_apis[api] = (s.get("name", ""), stype)
         
         for l in (data.get("lives") or []):
             lurl = l.get("url", "")
@@ -188,39 +170,51 @@ def main():
                 parse_keys.add(purl)
                 p["name"] = f"[{name}] {p.get('name', '解析')}"
                 all_parses.append(p)
+
+    print(f"  发现 {len(collect_apis)} 个采集站，开始测播放速度...")
     
-    # 采集站按播放速度排序
-    collect_sites.sort(key=lambda x: x.get("_sort", 99999))
-    for s in collect_sites:
-        s.pop("_sort", None)
+    # 4. 测播放速度
+    play_results = []
+    for api, (orig_name, stype) in collect_apis.items():
+        ttfb, speed, code = test_play_speed(api, stype)
+        play_results.append((ttfb, speed, code, orig_name, api, stype))
+        status = "ok" if code.startswith("2") else "fail"
+        sys.stdout.write(f"\r  测速: {len(play_results)}/{len(collect_apis)} [{status}]")
+        sys.stdout.flush()
+    print()
+
+    # 5. 排序：可用 → 首帧快 → 速度快
+    ok = sorted([(t,s,c,n,a,st) for t,s,c,n,a,st in play_results if c.startswith("2")], key=lambda x:(x[0],-x[1]))
+    print(f"  可用采集站: {len(ok)}/{len(collect_apis)}")
     
-    # 构建最终 JSON
-    # 把每个完整源的 URL 也放进去，通过 csp_Abs 按需加载
-    # 在 sites 最前面放一个"切换线路"入口
-    result = {
-        "spider": spider,
-        "sites": collect_sites,
-        "lives": all_lives,
-        "parses": all_parses,
-    }
-    
+    for ttfb, speed, code, name, api, stype in ok:
+        print(f"    ✅ {ttfb:>5}ms  {speed:>5}KB/s  {name}")
+
+    # 6. 构建JSON
+    sites = []
+    for ttfb, speed, code, name, api, stype in ok:
+        clean_name = re.sub(r'^\[.*?\]\s*', '', name)
+        sites.append({
+            "key": clean_name or name,
+            "name": f"[{ttfb}ms|{speed}KB/s] {clean_name or name}",
+            "type": stype,
+            "api": api,
+            "searchable": 1,
+            "quickSearch": 1,
+            "filterable": 0
+        })
+
+    result = {"spider": "", "sites": sites, "lives": all_lives, "parses": all_parses}
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
-    
-    print(f"\n  === 采集站播放测速 ===")
-    for api, pms in sorted(play_cache.items(), key=lambda x: x[1]):
-        status = "✅" if pms < 99999 else "❌"
-        print(f"    {status} {pms:>5}ms  {api}")
-    
-    print(f"\n  sites:{len(collect_sites)} lives:{len(all_lives)} parses:{len(all_parses)}")
-    
-    # 额外：生成完整的源 URL 列表（供用户参考）
+
+    # 源URL列表
     with open(os.path.join(WORK_DIR, "sources.txt"), "w") as f:
-        f.write("# TVBox 源列表（按延迟排序）\n")
-        f.write(f"# 更新时间: {time.strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+        f.write(f"# 更新: {time.strftime('%Y-%m-%d %H:%M:%S')}\n\n")
         for name, url, latency, _ in source_configs:
             f.write(f"[{latency}ms] {name}\n{url}\n\n")
-    
+
+    print(f"\n  sites:{len(sites)} lives:{len(all_lives)} parses:{len(all_parses)}")
     print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] 完成!")
     return 0
 
