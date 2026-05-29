@@ -2,19 +2,24 @@ name: TVBox 自动更新
 
 on:
   schedule:
-    - cron: '0 * * * *'    # 每小时整点
-  workflow_dispatch:         # 支持手动触发
+    - cron: '0 * * * *'
+  workflow_dispatch:
 
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_PAT }}
 
       - name: 运行更新脚本
         run: python3 update.py
 
-      - name: 推送到 GitHub + Gitee
+      - name: 推送更新
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+          GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
         run: |
           git config user.email "bot@tvbox.local"
           git config user.name "TVBox Bot"
@@ -22,9 +27,10 @@ jobs:
           git diff --cached --quiet && echo "无变更" && exit 0
           git commit -m "auto update: $(date -u '+%Y-%m-%d %H:%M:%S')"
 
-          # 推送到 GitHub（origin）
+          # 推送到 GitHub（用 PAT）
+          git remote set-url origin https://25175:${GITHUB_PAT}@github.com/25175/tvyuan.git
           git push origin HEAD:master
 
-          # 推送到 Gitee（国内镜像）
-          git remote add gitee https://oauth2:${{ secrets.GITEE_TOKEN }}@gitee.com/onm-hundred-and-eleven/tvyuan.git
+          # 推送到 Gitee
+          git remote add gitee https://oauth2:${GITEE_TOKEN}@gitee.com/onm-hundred-and-eleven/tvyuan.git
           git push gitee HEAD:master --force 2>/dev/null || echo "Gitee 推送跳过"
