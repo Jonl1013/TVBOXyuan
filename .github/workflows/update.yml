@@ -1,0 +1,25 @@
+name: TVBox 自动更新
+
+on:
+  schedule:
+    - cron: '0 * * * *'   # 每小时整点
+  workflow_dispatch:        # 支持手动触发
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 运行更新脚本
+        run: python3 update.py
+
+      - name: 推送到 Gitee
+        run: |
+          git config user.email "bot@tvbox.local"
+          git config user.name "TVBox Bot"
+          git remote add gitee https://oauth2:${{ secrets.GITEE_TOKEN }}@gitee.com/onm-hundred-and-eleven/tvyuan.git
+          git add -A
+          git diff --cached --quiet && echo "无变更" && exit 0
+          git commit -m "auto update: $(date -u '+%Y-%m-%d %H:%M:%S')"
+          git push gitee HEAD:master
