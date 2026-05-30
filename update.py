@@ -188,28 +188,8 @@ def main():
             if u and u not in parse_keys: parse_keys.add(u); all_parses.append(p)
     print()
 
-    # 按延迟排序
-    all_sites.sort(key=lambda x: x.get("_lat", 99999))
-    for s in all_sites: s.pop("_lat", None)
-
-    # ── 4. 生成 tvbox_full.json（全量版）──
-    best_spider = max(spider_jars, key=spider_jars.get) if spider_jars else ""
-    full_json = {"spider": best_spider, "sites": all_sites, "lives": all_lives, "parses": all_parses}
-    with open(os.path.join(WORK_DIR, "tvbox_full.json"), "w", encoding="utf-8") as f:
-        json.dump(full_json, f, ensure_ascii=False, indent=2)
-    types = {}
-    for s in all_sites: types[s.get("type", -1)] = types.get(s.get("type", -1), 0) + 1
-    print(f"  全量版: {len(all_sites)} 站点 (采集:{types.get(0,0)+types.get(1,0)} 爬虫:{types.get(3,0)})")
-
-    # ── 5. 生成 tvbox_multi.json（多仓版）──
-    multi = {"storeHouse": [{"sourceName": f"[{lat}ms] {name}", "sourceUrl": url}
-                            for name, url, lat in available]}
-    with open(os.path.join(WORK_DIR, "tvbox_multi.json"), "w", encoding="utf-8") as f:
-        json.dump(multi, f, ensure_ascii=False, indent=2)
-    print(f"  多仓版: {len(available)} 个仓库")
-
-    # ── 6. 生成 tvbox.json（简洁版，采集站播放测速排序）──
-    print(f"  简洁版: 测 {len(collect_sources)} 个采集站播放速度...")
+    # ── 4. 采集站播放测速 ──
+    print(f"  播放测速: 测 {len(collect_sources)} 个采集站...")
     collect_results = []
     for api, (src_name, stype) in collect_sources.items():
         ttfb, speed, status = test_play_speed(api, stype)
@@ -221,8 +201,46 @@ def main():
     # 按持续速度排序（速度快→慢，同速按首帧快）
     collect_results.sort(key=lambda x: (-x[1], x[0]))
 
+    # 标记采集站的播放速度，用于全量版排序
+    speed_map = {api: (ttfb, speed) for ttfb, speed, api, _ in collect_results}
+    for s in all_sites:
+        api = s.get("api", "")
+        if api in speed_map:
+            s["_speed"] = speed_map[api][1]
+            s["_speed_ttfb"] = speed_map[api][0]
+
+    # 全量版排序：采集站(type 0/1)排前面按播放速度，爬虫站(type 3)排后面按源延迟
+    def full_sort_key(s):
+        st = s.get("type", -1)
+        if st in (0, 1):
+            return (0, -s.get("_speed", 0), s.get("_speed_ttfb", 99999), s.get("_lat", 99999))
+        return (1, 0, 0, s.get("_lat", 99999))
+    all_sites.sort(key=full_sort_key)
+    for s in all_sites:
+        s.pop("_lat", None)
+        s.pop("_speed", None)
+        s.pop("_speed_ttfb", None)
+
+    # ── 5. 生成 tvbox_full.json（全量版）──
+    best_spider = max(spider_jars, key=spider_jars.get) if spider_jars else ""
+    full_json = {"spider": best_spider, "sites": all_sites, "lives": all_lives, "parses": all_parses}
+    with open(os.path.join(WORK_DIR, "tvbox_full.json"), "w", encoding="utf-8") as f:
+        json.dump(full_json, f, ensure_ascii=False, indent=2)
+    types = {}
+    for s in all_sites: types[s.get("type", -1)] = types.get(s.get("type", -1), 0) + 1
+    print(f"  全量版: {len(all_sites)} 站点 (采集:{types.get(0,0)+types.get(1,0)} 爬虫:{types.get(3,0)})")
+
+    # ── 6. 生成 tvbox_multi.json（多仓版）──
+    multi = {"storeHouse": [{"sourceName": f"[{lat}ms] {name}", "sourceUrl": url}
+                            for name, url, lat in available]}
+    with open(os.path.join(WORK_DIR, "tvbox_multi.json"), "w", encoding="utf-8") as f:
+        json.dump(multi, f, ensure_ascii=False, indent=2)
+    print(f"  多仓版: {len(available)} 个仓库")
+
+    # ── 7. 生成 tvbox.json（简洁版，固定前10个最快采集站）──
+    SIMPLE_LIMIT = 10
     collect_sites = []
-    for ttfb, speed, api, stype in collect_results:
+    for ttfb, speed, api, stype in collect_results[:SIMPLE_LIMIT]:
         # 从全量站点中找名称
         clean_name = api.split("/")[2]
         for s in all_sites:
@@ -241,12 +259,13 @@ def main():
     with open(os.path.join(WORK_DIR, "tvbox.json"), "w", encoding="utf-8") as f:
         json.dump(collect_json, f, ensure_ascii=False, indent=2)
 
-    for i, (ttfb, speed, api, _) in enumerate(collect_results, 1):
+    print(f"  简洁版: {len(collect_sites)}/{SIMPLE_LIMIT} 站（共 {len(collect_results)} 个可用）")
+    for i, (ttfb, speed, api, _) in enumerate(collect_results[:SIMPLE_LIMIT], 1):
         stable = "🟢" if speed > 500 else "🟡" if speed > 100 else "🔴"
         host = api.split("/")[2][:25]
         print(f"    #{i} [{speed}KB/s|{ttfb}ms] {stable} {host}")
 
-    # ── 7. 源列表 ──
+    # ── 8. 源列表 ──
     with open(os.path.join(WORK_DIR, "sources.txt"), "w") as f:
         f.write(f"# {ts}\n\n")
         for name, url, lat in available: f.write(f"[{lat}ms] {name}\n{url}\n\n")
