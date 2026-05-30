@@ -109,10 +109,11 @@ def test_play_speed(api, stype, use_proxy=False):
     if not segs: return ttfb + mms, 0, "无分片"
     tb, tt, ok = 0, 0, 0
     for s in segs[:3]:
+        seg_url = f"{CF_PROXY}?u={urllib.parse.quote(s, safe='')}" if (use_proxy and CF_PROXY) else s
         r = subprocess.run(["curl", "-s", "-o", "/dev/null",
                            "-w", "%{http_code},%{size_download},%{time_total}",
-                           "--connect-timeout", "8", "--max-time", "20", s],
-                          capture_output=True, timeout=20)
+                           "--connect-timeout", "8", "--max-time", "20", seg_url],
+                          capture_output=True, timeout=25)
         parts = r.stdout.decode().strip().split(",")
         code = parts[0] if parts else "000"
         sz = int(float(parts[1])) if len(parts) > 1 and parts[1] else 0
