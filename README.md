@@ -15,7 +15,7 @@
 
 ### 🗄️ 全量版
 
-27 个源全部站点合并（246站），含采集站+爬虫站，带 spider JAR：
+全部站点合并（255站），采集站播放测速排名在前，爬虫站延迟排名在后，带 spider JAR：
 
 | 网络 | 地址 |
 |------|------|
@@ -24,7 +24,7 @@
 
 ### 📦 多仓版
 
-27 个源独立保留，每个源有自己的 JAR 和站点，可切换仓库：
+5 个仓库独立保留，每个源有自己的 JAR 和站点，可切换仓库：
 
 | 网络 | 地址 |
 |------|------|
@@ -33,16 +33,15 @@
 
 ## 客户端下载
 
-| 客户端 | 多仓支持 | 下载地址 |
-|--------|:-------:|---------|
-| TVBox 原版 | ❌ | [GitHub 下载](https://github.com/CatVod/CatVodOpen/releases) |
-| 影视仓 | ✅ | [GitHub 下载](https://github.com/q215613905/TVBox/releases) |
-| OK影视 | ✅ | [GitHub 下载](https://github.com/okaapps/oktv/releases) |
-| FongMi（丰米）| ✅ | [GitHub 下载](https://github.com/FongMi/CatVodOpen/releases) |
+| 客户端 | 多仓 | 仓库地址 |
+|--------|:----:|---------|
+| TVBox 原版 | ❌ | [GitHub Releases](https://github.com/o0HalfLife0o/TVBoxOSC/releases) |
+| 影视仓 | ✅ | [GitHub 仓库](https://github.com/q215613905/TVBoxOSC) |
+| FongMi（丰米）| ✅ | [GitHub 仓库](https://github.com/FongMi/Release) |
+| TVBox 合集下载 | - | [网盘下载](https://pan.wpcoder.cn/?dir=tvbox) |
 
 **多仓配置方式：**
 - 影视仓：首页 → 配置 → 多仓地址
-- OK影视：设置 → 多仓
 - FongMi：设置 → 配置 → 多仓
 
 ## 说明
