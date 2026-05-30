@@ -16,10 +16,11 @@ https://tv.cc0cd.cc.cd
 
 仅采集站（固定前10个最快），不依赖 JAR，**真实播放测速排序**（m3u8→分片下载）：
 
-| 网络 | 地址 |
+| 渠道 | 地址 |
 |------|------|
-| 🇨🇳 国内 | `https://gitee.com/onm-hundred-and-eleven/tvyuan/raw/main/tvbox.json` |
-| 🌍 海外 | `https://raw.githubusercontent.com/25175/tvyuan/master/tvbox.json` |
+| 🔗 直链 | `https://tv.cc0cd.cc.cd/jj` |
+| 🌍 GitHub | `https://raw.githubusercontent.com/25175/tvyuan/master/tvbox.json` |
+| 🇨🇳 Gitee | `https://gitee.com/onm-hundred-and-eleven/tvyuan/raw/main/tvbox.json` |
 
 ### 🗄️ 全量版
 
