@@ -62,66 +62,75 @@ def build_url(base, params):
     return base.rstrip("/") + ("&" if "?" in base else "?") + params
 
 def test_play_speed(api, stype, use_proxy=False):
-    """真实播放测速：m3u8主列表→媒体列表→ts分片下载"""
+    """真实播放测速：尝试多个视频+多个分片，跳过404"""
     base = re.sub(r'[?&]ac=list.*', '', api.rstrip("/"))
     body = curl(build_url(base, "ac=list"), 15, via_proxy=use_proxy)
     if not body or len(body) < 50: return 0, 0, "列表失败"
-    vid = None
+
+    # 获取视频ID列表（多试几个）
+    vids = []
     if stype == 0:
-        m = re.findall(r'<id>(\d+)</id>', body)
-        vid = m[0] if m else None
+        vids = re.findall(r'<id>(\d+)</id>', body)[:3]
     else:
         try:
             j = json.loads(body, strict=False)
-            vid = str(j["list"][0]["vod_id"]) if j.get("list") else None
+            vids = [str(v["vod_id"]) for v in (j.get("list") or [])[:3]]
         except: return 0, 0, "解析失败"
-    if not vid: return 0, 0, "无ID"
-    detail = curl(build_url(base, f"ac=detail&ids={vid}"), 15, via_proxy=use_proxy)
-    play = None
-    if stype == 0:
-        u = extract_m3u8(detail); play = u[0] if u else None
-    else:
-        try:
-            dj = json.loads(detail, strict=False)
-            vl = dj.get("list", [])
-            if vl: u = extract_m3u8(vl[0].get("vod_play_url", "")); play = u[0] if u else None
-        except: return 0, 0, "详情失败"
-    if not play: return 0, 0, "无播放URL"
-    t0 = time.time()
-    master = curl(play, 15, via_proxy=use_proxy)
-    ttfb = int((time.time() - t0) * 1000)
-    if not master: return ttfb, 0, "主列表空"
-    media_url = None
-    if "#EXT-X-STREAM-INF" in master:
-        lines = master.strip().split("\n")
-        for i, line in enumerate(lines):
-            if "STREAM-INF" in line and i + 1 < len(lines):
-                sub = lines[i + 1].strip()
-                if sub and not sub.startswith("#"):
-                    media_url = resolve_url(play, sub); break
-    elif "#EXTINF" in master: media_url = play
-    if not media_url: return ttfb, 0, "无媒体列表"
-    t1 = time.time()
-    media = curl(media_url, 15, via_proxy=use_proxy)
-    mms = int((time.time() - t1) * 1000)
-    if "#EXTINF" not in media: return ttfb + mms, 0, "无分片"
-    segs = get_segments(media, media_url)
-    if not segs: return ttfb + mms, 0, "无分片"
-    tb, tt, ok = 0, 0, 0
-    for s in segs[:3]:
-        seg_url = f"{CF_PROXY}?u={urllib.parse.quote(s, safe='')}" if (use_proxy and CF_PROXY) else s
-        r = subprocess.run(["curl", "-s", "-o", "/dev/null",
-                           "-w", "%{http_code},%{size_download},%{time_total}",
-                           "--connect-timeout", "8", "--max-time", "20", seg_url],
-                          capture_output=True, timeout=25)
-        parts = r.stdout.decode().strip().split(",")
-        code = parts[0] if parts else "000"
-        sz = int(float(parts[1])) if len(parts) > 1 and parts[1] else 0
-        dl = float(parts[2]) if len(parts) > 2 and parts[2] else 99
-        if code.startswith("2") and sz > 1000: tb += sz; tt += dl; ok += 1
-    if ok == 0: return ttfb + mms, 0, "分片失败"
-    speed = int((tb / 1024) / tt) if tt > 0 else 0
-    return ttfb + mms, speed, "OK"
+    if not vids: return 0, 0, "无ID"
+
+    for vid in vids:
+        detail = curl(build_url(base, f"ac=detail&ids={vid}"), 15, via_proxy=use_proxy)
+        if not detail: continue
+        m3u8s = []
+        if stype == 0:
+            m3u8s = extract_m3u8(detail)
+        else:
+            try:
+                dj = json.loads(detail, strict=False)
+                for v in (dj.get("list") or []):
+                    m3u8s.extend(extract_m3u8(v.get("vod_play_url", "")))
+            except: continue
+        if not m3u8s: continue
+
+        for play in m3u8s[:2]:  # 每个视频最多试2个m3u8源
+            t0 = time.time()
+            master = curl(play, 15, via_proxy=use_proxy)
+            ttfb = int((time.time() - t0) * 1000)
+            if not master: continue
+            media_url = None
+            if "#EXT-X-STREAM-INF" in master:
+                for i, line in enumerate(master.strip().split("\n")):
+                    if "STREAM-INF" in line:
+                        sub = master.strip().split("\n")[i+1].strip() if i+1 < len(master.strip().split("\n")) else ""
+                        if sub and not sub.startswith("#"):
+                            media_url = resolve_url(play, sub); break
+            elif "#EXTINF" in master: media_url = play
+            if not media_url: continue
+            t1 = time.time()
+            media = curl(media_url, 15, via_proxy=use_proxy)
+            mms = int((time.time() - t1) * 1000)
+            if "#EXTINF" not in media: continue
+            segs = get_segments(media, media_url)
+            if not segs: continue
+
+            # 下载分片，跳过404，至少成功2个才算通过
+            tb, tt, ok = 0, 0, 0
+            for s in segs[:8]:
+                if ok >= 3: break  # 够了
+                seg_url = f"{CF_PROXY}?u={urllib.parse.quote(s, safe='')}" if (use_proxy and CF_PROXY) else s
+                r = subprocess.run(["curl", "-s", "-o", "/dev/null",
+                                   "-w", "%{http_code},%{size_download},%{time_total}",
+                                   "--connect-timeout", "8", "--max-time", "20", seg_url],
+                                  capture_output=True, timeout=25)
+                parts = r.stdout.decode().strip().split(",")
+                code = parts[0] if parts else "000"
+                sz = int(float(parts[1])) if len(parts) > 1 and parts[1] else 0
+                dl = float(parts[2]) if len(parts) > 2 and parts[2] else 99
+                if code.startswith("2") and sz > 1000: tb += sz; tt += dl; ok += 1
+            if ok >= 2:
+                speed = int((tb / 1024) / tt) if tt > 0 else 0
+                return ttfb + mms, speed, "OK"
+    return 0, 0, "全部失败"
 
 def main():
     ts = time.strftime('%Y-%m-%d %H:%M:%S')
