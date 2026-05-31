@@ -3,7 +3,7 @@
   "sites": [
     {
       "key": "🦚360┃采集",
-      "name": "[3687KB/s|1938ms|稳] 🦚360┃采集",
+      "name": "[555KB/s|1087ms|稳] 🦚360┃采集",
       "type": 1,
       "api": "https://360zy.com/api.php/provide/vod?",
       "searchable": 1,
@@ -11,17 +11,8 @@
       "filterable": 0
     },
     {
-      "key": "新浪┃采八",
-      "name": "[1680KB/s|408ms|稳] 新浪┃采八",
-      "type": 1,
-      "api": "http://api.xinlangapi.com/xinlangapi.php/provide/vod/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
       "key": "光速┃采十",
-      "name": "[613KB/s|408ms|稳] 光速┃采十",
+      "name": "[1655KB/s|472ms|稳] 光速┃采十",
       "type": 1,
       "api": "https://api.guangsuapi.com/api.php/provide/vod/",
       "searchable": 1,
@@ -29,8 +20,17 @@
       "filterable": 0
     },
     {
+      "key": "金鹰┃采一",
+      "name": "[1539KB/s|474ms|稳] 金鹰┃采一",
+      "type": 1,
+      "api": "https://jyzyapi.com/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
       "key": "豪华┃采三",
-      "name": "[592KB/s|371ms|稳] 豪华┃采三",
+      "name": "[687KB/s|1418ms|稳] 豪华┃采三",
       "type": 1,
       "api": "https://hhzyapi.com/api.php/provide/vod",
       "searchable": 1,
@@ -38,10 +38,10 @@
       "filterable": 0
     },
     {
-      "key": "金鹰┃采一",
-      "name": "[365KB/s|567ms|中] 金鹰┃采一",
+      "key": "新浪┃采八",
+      "name": "[34KB/s|433ms|慢] 新浪┃采八",
       "type": 1,
-      "api": "https://jyzyapi.com/provide/vod/",
+      "api": "http://api.xinlangapi.com/xinlangapi.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
