@@ -3,7 +3,7 @@
   "sites": [
     {
       "key": "🦚360┃采集",
-      "name": "[800KB/s|4051ms|稳] 🦚360┃采集",
+      "name": "[1119KB/s|627ms|稳] 🦚360┃采集",
       "type": 1,
       "api": "https://360zy.com/api.php/provide/vod?",
       "searchable": 1,
@@ -11,17 +11,8 @@
       "filterable": 0
     },
     {
-      "key": "豪华┃采三",
-      "name": "[1613KB/s|282ms|稳] 豪华┃采三",
-      "type": 1,
-      "api": "https://hhzyapi.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
       "key": "光速┃采十",
-      "name": "[1597KB/s|409ms|稳] 光速┃采十",
+      "name": "[3317KB/s|540ms|稳] 光速┃采十",
       "type": 1,
       "api": "https://api.guangsuapi.com/api.php/provide/vod/",
       "searchable": 1,
@@ -30,7 +21,7 @@
     },
     {
       "key": "新浪┃采八",
-      "name": "[1140KB/s|427ms|稳] 新浪┃采八",
+      "name": "[3295KB/s|512ms|稳] 新浪┃采八",
       "type": 1,
       "api": "http://api.xinlangapi.com/xinlangapi.php/provide/vod/",
       "searchable": 1,
@@ -38,8 +29,26 @@
       "filterable": 0
     },
     {
+      "key": "金鹰┃采一",
+      "name": "[2664KB/s|606ms|稳] 金鹰┃采一",
+      "type": 1,
+      "api": "https://jyzyapi.com/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "豪华┃采三",
+      "name": "[2599KB/s|521ms|稳] 豪华┃采三",
+      "type": 1,
+      "api": "https://hhzyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
       "key": "🔥如意┃采集",
-      "name": "[1000KB/s|1545ms|稳] 🔥如意┃采集",
+      "name": "[2094KB/s|1086ms|稳] 🔥如意┃采集",
       "type": 1,
       "api": "https://cj.rycjapi.com/api.php/provide/vod/",
       "searchable": 1,
@@ -47,10 +56,10 @@
       "filterable": 0
     },
     {
-      "key": "金鹰┃采一",
-      "name": "[904KB/s|360ms|稳] 金鹰┃采一",
+      "key": "茅台┃采四",
+      "name": "[298KB/s|1175ms|中] 茅台┃采四",
       "type": 1,
-      "api": "https://jyzyapi.com/provide/vod/",
+      "api": "https://caiji.maotaizy.cc/api.php/provide/vod/at/josn/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
