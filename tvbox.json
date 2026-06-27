@@ -3,7 +3,7 @@
   "sites": [
     {
       "key": "🦚360┃采集",
-      "name": "[2721KB/s|987ms|稳] 🦚360┃采集",
+      "name": "[1156KB/s|1416ms|稳] 🦚360┃采集",
       "type": 1,
       "api": "https://360zy.com/api.php/provide/vod?",
       "searchable": 1,
@@ -11,17 +11,17 @@
       "filterable": 0
     },
     {
-      "key": "金鹰┃采一",
-      "name": "[7912KB/s|560ms|稳] 金鹰┃采一",
+      "key": "新浪┃采八",
+      "name": "[876KB/s|338ms|稳] 新浪┃采八",
       "type": 1,
-      "api": "https://jyzyapi.com/provide/vod/",
+      "api": "http://api.xinlangapi.com/xinlangapi.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
     {
       "key": "光速┃采十",
-      "name": "[7025KB/s|372ms|稳] 光速┃采十",
+      "name": "[874KB/s|340ms|稳] 光速┃采十",
       "type": 1,
       "api": "https://api.guangsuapi.com/api.php/provide/vod/",
       "searchable": 1,
@@ -29,8 +29,17 @@
       "filterable": 0
     },
     {
+      "key": "金鹰┃采一",
+      "name": "[848KB/s|417ms|稳] 金鹰┃采一",
+      "type": 1,
+      "api": "https://jyzyapi.com/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
       "key": "豪华┃采三",
-      "name": "[6488KB/s|448ms|稳] 豪华┃采三",
+      "name": "[827KB/s|443ms|稳] 豪华┃采三",
       "type": 1,
       "api": "https://hhzyapi.com/api.php/provide/vod",
       "searchable": 1,
@@ -39,7 +48,7 @@
     },
     {
       "key": "🔥如意┃采集",
-      "name": "[3093KB/s|807ms|稳] 🔥如意┃采集",
+      "name": "[420KB/s|1362ms|中] 🔥如意┃采集",
       "type": 1,
       "api": "https://cj.rycjapi.com/api.php/provide/vod/",
       "searchable": 1,
@@ -47,17 +56,8 @@
       "filterable": 0
     },
     {
-      "key": "新浪┃采八",
-      "name": "[431KB/s|423ms|中] 新浪┃采八",
-      "type": 1,
-      "api": "http://api.xinlangapi.com/xinlangapi.php/provide/vod/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
       "key": "茅台┃采四",
-      "name": "[298KB/s|715ms|中] 茅台┃采四",
+      "name": "[209KB/s|9009ms|中] 茅台┃采四",
       "type": 1,
       "api": "https://caiji.maotaizy.cc/api.php/provide/vod/at/josn/",
       "searchable": 1,
