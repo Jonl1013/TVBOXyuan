@@ -3,7 +3,7 @@
   "sites": [
     {
       "key": "🦚360┃采集",
-      "name": "[346KB/s|976ms|中] 🦚360┃采集",
+      "name": "[548KB/s|939ms|稳] 🦚360┃采集",
       "type": 1,
       "api": "https://360zy.com/api.php/provide/vod?",
       "searchable": 1,
@@ -11,26 +11,26 @@
       "filterable": 0
     },
     {
-      "key": "金鹰┃采一",
-      "name": "[1572KB/s|540ms|稳] 金鹰┃采一",
+      "key": "🍚玛丽┃秒播",
+      "name": "[396KB/s|974ms|中] 🍚玛丽┃秒播",
       "type": 1,
-      "api": "https://jyzyapi.com/provide/vod/",
+      "api": "https://360zy.com/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
     {
-      "key": "光速┃采十",
-      "name": "[1502KB/s|454ms|稳] 光速┃采十",
+      "key": "🔥️火狐┃秒播",
+      "name": "[2311KB/s|391ms|稳] 🔥️火狐┃秒播",
       "type": 1,
-      "api": "https://api.guangsuapi.com/api.php/provide/vod/",
+      "api": "https://hhzyapi.com/api.php/provide/vod/?ac=list",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
     {
       "key": "豪华┃采三",
-      "name": "[1377KB/s|418ms|稳] 豪华┃采三",
+      "name": "[2302KB/s|349ms|稳] 豪华┃采三",
       "type": 1,
       "api": "https://hhzyapi.com/api.php/provide/vod",
       "searchable": 1,
@@ -38,17 +38,17 @@
       "filterable": 0
     },
     {
-      "key": "🔥如意┃采集",
-      "name": "[1170KB/s|1351ms|稳] 🔥如意┃采集",
+      "key": "🍎高清┃2K",
+      "name": "[1680KB/s|2368ms|稳] 🍎高清┃2K",
       "type": 1,
-      "api": "https://cj.rycjapi.com/api.php/provide/vod/",
+      "api": "https://api.1080zyku.com/inc/apijson.php",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
     {
       "key": "新浪┃采八",
-      "name": "[596KB/s|497ms|稳] 新浪┃采八",
+      "name": "[1514KB/s|324ms|稳] 新浪┃采八",
       "type": 1,
       "api": "http://api.xinlangapi.com/xinlangapi.php/provide/vod/",
       "searchable": 1,
@@ -56,28 +56,37 @@
       "filterable": 0
     },
     {
-      "key": "茅台┃采四",
-      "name": "[428KB/s|1062ms|中] 茅台┃采四",
+      "key": "🥣爱坤┃影视",
+      "name": "[1227KB/s|818ms|稳] 🥣爱坤┃影视",
       "type": 1,
-      "api": "https://caiji.maotaizy.cc/api.php/provide/vod/at/josn/",
+      "api": "https://ikunzyapi.com/api.php/provide/vod/from/ikm3u8/at/json",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
     {
-      "key": "🦔暴風┃采集",
-      "name": "[369KB/s|2579ms|中] 🦔暴風┃采集",
+      "key": "🔰金鹰┃影视",
+      "name": "[932KB/s|472ms|稳] 🔰金鹰┃影视",
       "type": 1,
-      "api": "https://bfzyapi.com/api.php/provide/vod",
+      "api": "https://jyzyapi.com/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
     {
-      "key": "暴风┃采二",
-      "name": "[360KB/s|2217ms|中] 暴风┃采二",
+      "key": "🌈琥珀┃影视",
+      "name": "[923KB/s|463ms|稳] 🌈琥珀┃影视",
       "type": 1,
-      "api": "https://bfzyapi.com/api.php/provide/vod/",
+      "api": "https://www.huyaapi.com/api.php/provide/vod/from/hym3u8",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "🔥如意┃采集",
+      "name": "[498KB/s|1639ms|中] 🔥如意┃采集",
+      "type": 1,
+      "api": "https://cj.rycjapi.com/api.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
