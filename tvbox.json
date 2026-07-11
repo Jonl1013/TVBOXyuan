@@ -3,7 +3,7 @@
   "sites": [
     {
       "key": "🦚360┃采集",
-      "name": "[2384KB/s|277ms|稳] 🦚360┃采集",
+      "name": "[259KB/s|994ms|中] 🦚360┃采集",
       "type": 1,
       "api": "https://360zy.com/api.php/provide/vod?",
       "searchable": 1,
@@ -11,17 +11,8 @@
       "filterable": 0
     },
     {
-      "key": "光速┃采十",
-      "name": "[14338KB/s|381ms|稳] 光速┃采十",
-      "type": 1,
-      "api": "https://api.guangsuapi.com/api.php/provide/vod/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
       "key": "豪华┃采三",
-      "name": "[8294KB/s|384ms|稳] 豪华┃采三",
+      "name": "[1975KB/s|461ms|稳] 豪华┃采三",
       "type": 1,
       "api": "https://hhzyapi.com/api.php/provide/vod",
       "searchable": 1,
@@ -30,7 +21,7 @@
     },
     {
       "key": "新浪┃采八",
-      "name": "[6200KB/s|387ms|稳] 新浪┃采八",
+      "name": "[1076KB/s|405ms|稳] 新浪┃采八",
       "type": 1,
       "api": "http://api.xinlangapi.com/xinlangapi.php/provide/vod/",
       "searchable": 1,
@@ -39,7 +30,7 @@
     },
     {
       "key": "🔥如意┃采集",
-      "name": "[2404KB/s|827ms|稳] 🔥如意┃采集",
+      "name": "[964KB/s|1518ms|稳] 🔥如意┃采集",
       "type": 1,
       "api": "https://cj.rycjapi.com/api.php/provide/vod/",
       "searchable": 1,
@@ -47,8 +38,26 @@
       "filterable": 0
     },
     {
+      "key": "光速┃采十",
+      "name": "[451KB/s|475ms|中] 光速┃采十",
+      "type": 1,
+      "api": "https://api.guangsuapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "🦚量子┃采集",
+      "name": "[388KB/s|2454ms|中] 🦚量子┃采集",
+      "type": 0,
+      "api": "https://cj.lziapi.com/api.php/provide/vod/at/xml/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
       "key": "茅台┃采四",
-      "name": "[1225KB/s|1031ms|稳] 茅台┃采四",
+      "name": "[176KB/s|1318ms|中] 茅台┃采四",
       "type": 1,
       "api": "https://caiji.maotaizy.cc/api.php/provide/vod/at/josn/",
       "searchable": 1,
@@ -57,7 +66,7 @@
     },
     {
       "key": "金鹰┃采一",
-      "name": "[403KB/s|559ms|中] 金鹰┃采一",
+      "name": "[91KB/s|655ms|慢] 金鹰┃采一",
       "type": 1,
       "api": "https://jyzyapi.com/provide/vod/",
       "searchable": 1,
