@@ -2,26 +2,17 @@
   "spider": "",
   "sites": [
     {
-      "key": "🔥️火狐┃秒播",
-      "name": "[12240KB/s|398ms|稳] 🔥️火狐┃秒播",
+      "key": "🌈琥珀┃影视",
+      "name": "[2010KB/s|496ms|稳] 🌈琥珀┃影视",
       "type": 1,
-      "api": "https://hhzyapi.com/api.php/provide/vod/?ac=list",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "🐂红牛┃采集",
-      "name": "[4029KB/s|2599ms|稳] 🐂红牛┃采集",
-      "type": 1,
-      "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
+      "api": "https://www.huyaapi.com/api.php/provide/vod/from/hym3u8",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
     {
       "key": "🥣爱坤┃影视",
-      "name": "[1567KB/s|285ms|稳] 🥣爱坤┃影视",
+      "name": "[1581KB/s|904ms|稳] 🥣爱坤┃影视",
       "type": 1,
       "api": "https://ikunzyapi.com/api.php/provide/vod/from/ikm3u8/at/json",
       "searchable": 1,
@@ -30,7 +21,7 @@
     },
     {
       "key": "🔥如意┃采集",
-      "name": "[1126KB/s|878ms|稳] 🔥如意┃采集",
+      "name": "[1412KB/s|1291ms|稳] 🔥如意┃采集",
       "type": 1,
       "api": "https://cj.rycjapi.com/api.php/provide/vod/",
       "searchable": 1,
@@ -38,8 +29,17 @@
       "filterable": 0
     },
     {
+      "key": "🐂红牛┃采集",
+      "name": "[1325KB/s|2568ms|稳] 🐂红牛┃采集",
+      "type": 1,
+      "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
       "key": "🔰金鹰┃影视",
-      "name": "[478KB/s|499ms|中] 🔰金鹰┃影视",
+      "name": "[1007KB/s|410ms|稳] 🔰金鹰┃影视",
       "type": 1,
       "api": "https://jyzyapi.com/provide/vod/",
       "searchable": 1,
@@ -47,10 +47,10 @@
       "filterable": 0
     },
     {
-      "key": "🌈琥珀┃影视",
-      "name": "[419KB/s|634ms|中] 🌈琥珀┃影视",
+      "key": "🔥️火狐┃秒播",
+      "name": "[989KB/s|359ms|稳] 🔥️火狐┃秒播",
       "type": 1,
-      "api": "https://www.huyaapi.com/api.php/provide/vod/from/hym3u8",
+      "api": "https://hhzyapi.com/api.php/provide/vod/?ac=list",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
