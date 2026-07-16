@@ -3,7 +3,7 @@
   "sites": [
     {
       "key": "🔰金鹰┃影视",
-      "name": "[2250KB/s|502ms|稳] 🔰金鹰┃影视",
+      "name": "[2400KB/s|402ms|稳] 🔰金鹰┃影视",
       "type": 1,
       "api": "https://jyzyapi.com/provide/vod/",
       "searchable": 1,
@@ -11,17 +11,8 @@
       "filterable": 0
     },
     {
-      "key": "🔥️火狐┃秒播",
-      "name": "[2053KB/s|447ms|稳] 🔥️火狐┃秒播",
-      "type": 1,
-      "api": "https://hhzyapi.com/api.php/provide/vod/?ac=list",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
       "key": "🌈琥珀┃影视",
-      "name": "[1004KB/s|628ms|稳] 🌈琥珀┃影视",
+      "name": "[1283KB/s|1507ms|稳] 🌈琥珀┃影视",
       "type": 1,
       "api": "https://www.huyaapi.com/api.php/provide/vod/from/hym3u8",
       "searchable": 1,
@@ -30,7 +21,7 @@
     },
     {
       "key": "🥣爱坤┃影视",
-      "name": "[981KB/s|1013ms|稳] 🥣爱坤┃影视",
+      "name": "[816KB/s|1028ms|稳] 🥣爱坤┃影视",
       "type": 1,
       "api": "https://ikunzyapi.com/api.php/provide/vod/from/ikm3u8/at/json",
       "searchable": 1,
@@ -38,17 +29,8 @@
       "filterable": 0
     },
     {
-      "key": "🐂红牛┃采集",
-      "name": "[750KB/s|4912ms|稳] 🐂红牛┃采集",
-      "type": 1,
-      "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
       "key": "🔥如意┃采集",
-      "name": "[725KB/s|1591ms|稳] 🔥如意┃采集",
+      "name": "[358KB/s|1594ms|中] 🔥如意┃采集",
       "type": 1,
       "api": "https://cj.rycjapi.com/api.php/provide/vod/",
       "searchable": 1,
@@ -56,19 +38,19 @@
       "filterable": 0
     },
     {
-      "key": "🔃量子┃资源",
-      "name": "[671KB/s|2332ms|稳] 🔃量子┃资源",
+      "key": "🔥️火狐┃秒播",
+      "name": "[322KB/s|363ms|中] 🔥️火狐┃秒播",
       "type": 1,
-      "api": "http://cj.lziapi.com/api.php/provide/vod/",
+      "api": "https://hhzyapi.com/api.php/provide/vod/?ac=list",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
     {
-      "key": "🦚量子┃采集",
-      "name": "[536KB/s|1818ms|稳] 🦚量子┃采集",
-      "type": 0,
-      "api": "https://cj.lziapi.com/api.php/provide/vod/at/xml/",
+      "key": "🐂红牛┃采集",
+      "name": "[184KB/s|3071ms|中] 🐂红牛┃采集",
+      "type": 1,
+      "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
