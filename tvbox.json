@@ -2,17 +2,8 @@
   "spider": "",
   "sites": [
     {
-      "key": "🔰金鹰┃影视",
-      "name": "[2593KB/s|599ms|稳] 🔰金鹰┃影视",
-      "type": 1,
-      "api": "https://jyzyapi.com/provide/vod/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
       "key": "🥣爱坤┃影视",
-      "name": "[1702KB/s|612ms|稳] 🥣爱坤┃影视",
+      "name": "[2402KB/s|962ms|稳] 🥣爱坤┃影视",
       "type": 1,
       "api": "https://ikunzyapi.com/api.php/provide/vod/from/ikm3u8/at/json",
       "searchable": 1,
@@ -20,17 +11,17 @@
       "filterable": 0
     },
     {
-      "key": "🔥如意┃采集",
-      "name": "[1238KB/s|1334ms|稳] 🔥如意┃采集",
+      "key": "🔰金鹰┃影视",
+      "name": "[1950KB/s|698ms|稳] 🔰金鹰┃影视",
       "type": 1,
-      "api": "https://cj.rycjapi.com/api.php/provide/vod/",
+      "api": "https://jyzyapi.com/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
     {
       "key": "🔥️火狐┃秒播",
-      "name": "[1132KB/s|317ms|稳] 🔥️火狐┃秒播",
+      "name": "[1814KB/s|417ms|稳] 🔥️火狐┃秒播",
       "type": 1,
       "api": "https://hhzyapi.com/api.php/provide/vod/?ac=list",
       "searchable": 1,
@@ -38,19 +29,28 @@
       "filterable": 0
     },
     {
-      "key": "🌈琥珀┃影视",
-      "name": "[999KB/s|455ms|稳] 🌈琥珀┃影视",
+      "key": "🔥如意┃采集",
+      "name": "[691KB/s|945ms|稳] 🔥如意┃采集",
       "type": 1,
-      "api": "https://www.huyaapi.com/api.php/provide/vod/from/hym3u8",
+      "api": "https://cj.rycjapi.com/api.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
     {
       "key": "🐂红牛┃采集",
-      "name": "[761KB/s|3986ms|稳] 🐂红牛┃采集",
+      "name": "[566KB/s|4548ms|稳] 🐂红牛┃采集",
       "type": 1,
       "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "🌈琥珀┃影视",
+      "name": "[563KB/s|716ms|稳] 🌈琥珀┃影视",
+      "type": 1,
+      "api": "https://www.huyaapi.com/api.php/provide/vod/from/hym3u8",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
