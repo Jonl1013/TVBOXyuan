@@ -3,7 +3,7 @@
   "sites": [
     {
       "key": "🔥️火狐┃秒播",
-      "name": "[3829KB/s|349ms|稳] 🔥️火狐┃秒播",
+      "name": "[2888KB/s|394ms|稳] 🔥️火狐┃秒播",
       "type": 1,
       "api": "https://hhzyapi.com/api.php/provide/vod/?ac=list",
       "searchable": 1,
@@ -12,7 +12,7 @@
     },
     {
       "key": "🐂红牛┃采集",
-      "name": "[1814KB/s|3084ms|稳] 🐂红牛┃采集",
+      "name": "[2673KB/s|2679ms|稳] 🐂红牛┃采集",
       "type": 1,
       "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
       "searchable": 1,
@@ -21,7 +21,7 @@
     },
     {
       "key": "🌈琥珀┃影视",
-      "name": "[1396KB/s|507ms|稳] 🌈琥珀┃影视",
+      "name": "[2417KB/s|563ms|稳] 🌈琥珀┃影视",
       "type": 1,
       "api": "https://www.huyaapi.com/api.php/provide/vod/from/hym3u8",
       "searchable": 1,
@@ -29,8 +29,17 @@
       "filterable": 0
     },
     {
+      "key": "🔰金鹰┃影视",
+      "name": "[1536KB/s|1216ms|稳] 🔰金鹰┃影视",
+      "type": 1,
+      "api": "https://jyzyapi.com/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
       "key": "🥣爱坤┃影视",
-      "name": "[959KB/s|729ms|稳] 🥣爱坤┃影视",
+      "name": "[911KB/s|956ms|稳] 🥣爱坤┃影视",
       "type": 1,
       "api": "https://ikunzyapi.com/api.php/provide/vod/from/ikm3u8/at/json",
       "searchable": 1,
@@ -39,7 +48,7 @@
     },
     {
       "key": "🎀极速┃采集",
-      "name": "[918KB/s|453ms|稳] 🎀极速┃采集",
+      "name": "[826KB/s|632ms|稳] 🎀极速┃采集",
       "type": 1,
       "api": "https://jszyapi.com/api.php/provide/vod/",
       "searchable": 1,
@@ -47,19 +56,19 @@
       "filterable": 0
     },
     {
-      "key": "🔰金鹰┃影视",
-      "name": "[861KB/s|404ms|稳] 🔰金鹰┃影视",
+      "key": "🔥如意┃采集",
+      "name": "[643KB/s|1519ms|稳] 🔥如意┃采集",
       "type": 1,
-      "api": "https://jyzyapi.com/provide/vod/",
+      "api": "https://cj.rycjapi.com/api.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
     {
-      "key": "🔥如意┃采集",
-      "name": "[727KB/s|1420ms|稳] 🔥如意┃采集",
+      "key": "🍎高清┃2K",
+      "name": "[496KB/s|1905ms|中] 🍎高清┃2K",
       "type": 1,
-      "api": "https://cj.rycjapi.com/api.php/provide/vod/",
+      "api": "https://api.1080zyku.com/inc/apijson.php",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
