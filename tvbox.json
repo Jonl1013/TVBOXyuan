@@ -2,17 +2,8 @@
   "spider": "",
   "sites": [
     {
-      "key": "🌈琥珀┃影视",
-      "name": "[1777KB/s|663ms|稳] 🌈琥珀┃影视",
-      "type": 1,
-      "api": "https://www.huyaapi.com/api.php/provide/vod/from/hym3u8",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
       "key": "🐂红牛┃采集",
-      "name": "[1654KB/s|3259ms|稳] 🐂红牛┃采集",
+      "name": "[13336KB/s|2332ms|稳] 🐂红牛┃采集",
       "type": 1,
       "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
       "searchable": 1,
@@ -20,17 +11,17 @@
       "filterable": 0
     },
     {
-      "key": "🔥如意┃采集",
-      "name": "[1254KB/s|1473ms|稳] 🔥如意┃采集",
+      "key": "🌈琥珀┃影视",
+      "name": "[8346KB/s|542ms|稳] 🌈琥珀┃影视",
       "type": 1,
-      "api": "https://cj.rycjapi.com/api.php/provide/vod/",
+      "api": "https://www.huyaapi.com/api.php/provide/vod/from/hym3u8",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
     {
       "key": "🔥️火狐┃秒播",
-      "name": "[1232KB/s|401ms|稳] 🔥️火狐┃秒播",
+      "name": "[8099KB/s|432ms|稳] 🔥️火狐┃秒播",
       "type": 1,
       "api": "https://hhzyapi.com/api.php/provide/vod/?ac=list",
       "searchable": 1,
@@ -39,7 +30,7 @@
     },
     {
       "key": "🔰金鹰┃影视",
-      "name": "[1108KB/s|564ms|稳] 🔰金鹰┃影视",
+      "name": "[6842KB/s|495ms|稳] 🔰金鹰┃影视",
       "type": 1,
       "api": "https://jyzyapi.com/provide/vod/",
       "searchable": 1,
@@ -48,7 +39,7 @@
     },
     {
       "key": "🎀极速┃采集",
-      "name": "[1013KB/s|578ms|稳] 🎀极速┃采集",
+      "name": "[4978KB/s|578ms|稳] 🎀极速┃采集",
       "type": 1,
       "api": "https://jszyapi.com/api.php/provide/vod/",
       "searchable": 1,
@@ -56,8 +47,17 @@
       "filterable": 0
     },
     {
+      "key": "🔥如意┃采集",
+      "name": "[4865KB/s|865ms|稳] 🔥如意┃采集",
+      "type": 1,
+      "api": "https://cj.rycjapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
       "key": "🥣爱坤┃影视",
-      "name": "[586KB/s|1132ms|稳] 🥣爱坤┃影视",
+      "name": "[1360KB/s|353ms|稳] 🥣爱坤┃影视",
       "type": 1,
       "api": "https://ikunzyapi.com/api.php/provide/vod/from/ikm3u8/at/json",
       "searchable": 1,
