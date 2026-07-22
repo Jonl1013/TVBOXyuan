@@ -3,7 +3,7 @@
   "sites": [
     {
       "key": "🔥️火狐┃秒播",
-      "name": "[14340KB/s|560ms|稳] 🔥️火狐┃秒播",
+      "name": "[2501KB/s|353ms|稳] 🔥️火狐┃秒播",
       "type": 1,
       "api": "https://hhzyapi.com/api.php/provide/vod/?ac=list",
       "searchable": 1,
@@ -11,26 +11,8 @@
       "filterable": 0
     },
     {
-      "key": "🔰金鹰┃影视",
-      "name": "[10968KB/s|712ms|稳] 🔰金鹰┃影视",
-      "type": 1,
-      "api": "https://jyzyapi.com/provide/vod/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "🌈琥珀┃影视",
-      "name": "[7358KB/s|645ms|稳] 🌈琥珀┃影视",
-      "type": 1,
-      "api": "https://www.huyaapi.com/api.php/provide/vod/from/hym3u8",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
       "key": "🐂红牛┃采集",
-      "name": "[5670KB/s|2386ms|稳] 🐂红牛┃采集",
+      "name": "[2268KB/s|2900ms|稳] 🐂红牛┃采集",
       "type": 1,
       "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
       "searchable": 1,
@@ -38,17 +20,26 @@
       "filterable": 0
     },
     {
-      "key": "🎀极速┃采集",
-      "name": "[3851KB/s|749ms|稳] 🎀极速┃采集",
+      "key": "🌈琥珀┃影视",
+      "name": "[2152KB/s|402ms|稳] 🌈琥珀┃影视",
       "type": 1,
-      "api": "https://jszyapi.com/api.php/provide/vod/",
+      "api": "https://www.huyaapi.com/api.php/provide/vod/from/hym3u8",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "🔥如意┃采集",
+      "name": "[2152KB/s|1142ms|稳] 🔥如意┃采集",
+      "type": 1,
+      "api": "https://cj.rycjapi.com/api.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
     {
       "key": "🥣爱坤┃影视",
-      "name": "[3239KB/s|611ms|稳] 🥣爱坤┃影视",
+      "name": "[2034KB/s|493ms|稳] 🥣爱坤┃影视",
       "type": 1,
       "api": "https://ikunzyapi.com/api.php/provide/vod/from/ikm3u8/at/json",
       "searchable": 1,
@@ -56,10 +47,19 @@
       "filterable": 0
     },
     {
-      "key": "🔥如意┃采集",
-      "name": "[405KB/s|848ms|中] 🔥如意┃采集",
+      "key": "🔰金鹰┃影视",
+      "name": "[1687KB/s|431ms|稳] 🔰金鹰┃影视",
       "type": 1,
-      "api": "https://cj.rycjapi.com/api.php/provide/vod/",
+      "api": "https://jyzyapi.com/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "🎀极速┃采集",
+      "name": "[1519KB/s|310ms|稳] 🎀极速┃采集",
+      "type": 1,
+      "api": "https://jszyapi.com/api.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
